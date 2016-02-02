@@ -1,10 +1,11 @@
 {
-  "name": "CraigWatson1987-clamav",
-  "version": "0.0.1",
-  "author": "Craig Watson",
-  "summary": "Manage installation and configuration of ClamAV",
-  "license": "Apache-2.0",
-  "source": "git://github.com/craigwatson/puppet-clamav.git",
-  "project_page": "https://github.com/craigwatson/puppet-clamav",
-  "issues_url": "https://github.com/craigwatson/puppet-clamav/issues"
+  "name"         : "CraigWatson1987-clamav",
+  "version"      : "0.0.1",
+  "author"       : "Craig Watson",
+  "summary"      : "Manage installation and configuration of ClamAV",
+  "license"      : "Apache-2.0",
+  "source"       : "git://github.com/craigwatson/puppet-clamav.git",
+  "project_page" : "https://github.com/craigwatson/puppet-clamav",
+  "issues_url"   : "https://github.com/craigwatson/puppet-clamav/issues",
+  "dependencies" : []
 }
