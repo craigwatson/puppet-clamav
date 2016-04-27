@@ -4,9 +4,10 @@ class clamav::unofficial (
 ) {
 
   File {
-    owner => 'root',
-    group => 'root',
-    mode  => '0644',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package['clamav-freshclam'],
   }
 
   file {
@@ -29,6 +30,7 @@ class clamav::unofficial (
     command => '/usr/local/bin/clamav-unofficial-sigs.sh -c /usr/local/etc/clamav-unofficial-sigs.conf > /dev/null 2>&1',
     user    => 'root',
     minute  => 5,
+    require => File['/usr/local/bin/clamav-unofficial-sigs.sh','/usr/local/etc/clamav-unofficial-sigs.conf','/var/log/clamav/unofficial.log'],
   }
 
 }
