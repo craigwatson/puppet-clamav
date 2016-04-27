@@ -19,7 +19,7 @@ class clamav::config {
       source  => 'puppet:///modules/clamav/freshclam.conf',
       owner   => 'clamav',
       group   => 'adm',
-      mode    => '444',
+      mode    => '0444',
       require => Package['clamav-freshclam'],
       notify  => Exec['freshclam-init'];
   }
