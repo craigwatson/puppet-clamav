@@ -14,6 +14,13 @@ class clamav::config {
       group  => 'root',
       mode   => '0644',
       notify => Service['clamav-daemon'];
+
+    '/etc/clamav/freshclam.conf':
+      source  => 'puppet:///modules/clamav/freshclam.conf',
+      owner   => 'clamav',
+      group   => 'adm',
+      mode    => '444',
+      require => Package['clamav']
   }
 
   cron { 'freshclam':
@@ -22,6 +29,6 @@ class clamav::config {
     user    => 'root',
     minute  => '0',
     hour    => '1',
-    require => Package['clamav-freshclam'],
+    require => [File['/etc/clamav/freshclam.conf'],Package['clamav-freshclam']],
   }
 }
