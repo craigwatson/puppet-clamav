@@ -9,11 +9,12 @@ class clamav::config {
       notify  => Service['clamsmtp'];
 
     '/etc/clamav/clamd.conf':
-      source => 'puppet:///modules/clamav/clamd.conf',
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0644',
-      notify => Service['clamav-daemon'];
+      source  => 'puppet:///modules/clamav/clamd.conf',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package['clamav-freshclam'],
+      notify  => Service['clamav-daemon'];
 
     '/etc/clamav/freshclam.conf':
       source  => 'puppet:///modules/clamav/freshclam.conf',
