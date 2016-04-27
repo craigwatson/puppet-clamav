@@ -20,7 +20,8 @@ class clamav::config {
       owner   => 'clamav',
       group   => 'adm',
       mode    => '444',
-      require => Package['clamav']
+      require => Package['clamav-freshclam'],
+      notify  => Exec['freshclam-init'];
   }
 
   cron { 'freshclam':
