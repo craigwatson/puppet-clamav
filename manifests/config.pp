@@ -21,7 +21,7 @@ class clamav::config {
       owner   => 'clamav',
       group   => 'root',
       mode    => '0755',
-      require => Package['clamav-daemon'],
+      require => Package['clamav-freshclam'],
       notify  => Service['clamav-daemon'];
 
     '/etc/clamav/freshclam.conf':
