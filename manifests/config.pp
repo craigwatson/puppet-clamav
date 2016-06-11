@@ -16,6 +16,14 @@ class clamav::config {
       require => Package['clamav-freshclam'],
       notify  => Service['clamav-daemon'];
 
+    '/var/run/clamav/':
+      ensure  => directory,
+      owner   => 'clamav',
+      group   => 'root',
+      mode    => '0755',
+      require => Package['clamav-daemon'],
+      notify  => Service['clamav-daemon'];
+
     '/etc/clamav/freshclam.conf':
       source  => 'puppet:///modules/clamav/freshclam.conf',
       owner   => 'clamav',
