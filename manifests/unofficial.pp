@@ -1,6 +1,6 @@
 class clamav::unofficial (
-  $securite_key      = 'YOUR-SIGNATURE-NUMBER',
-  $malwarepatrol_key = 'YOUR-RECEIPT-NUMBER',
+  $securite_key,
+  $malwarepatrol_key,
 ) {
 
   File {
