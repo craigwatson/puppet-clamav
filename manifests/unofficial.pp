@@ -49,10 +49,10 @@ class clamav::unofficial (
   # == Cron
   cron { 'clamav-unofficial':
     ensure  => present,
-    command => '/usr/local/bin/clamav-unofficial-sigs.sh -c /usr/local/etc/clamav-unofficial-sigs.conf > /dev/null 2>&1',
+    command => '/usr/local/bin/clamav-unofficial-sigs.sh > /dev/null 2>&1',
     user    => 'root',
     minute  => 5,
-    require => File['/usr/local/bin/clamav-unofficial-sigs.sh','/usr/local/etc/clamav-unofficial-sigs.conf','/var/log/clamav/unofficial.log'],
+    require => File['/usr/local/bin/clamav-unofficial-sigs.sh','/etc/clamav-unofficial-sigs/user.conf','/var/log/clamav/unofficial.log'],
   }
 
 }
