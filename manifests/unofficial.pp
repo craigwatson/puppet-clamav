@@ -26,7 +26,7 @@ class clamav::unofficial (
   file { '/etc/clamav-unofficial-sigs/master.conf':
     ensure  => file,
     source  => 'puppet:///modules/clamav/unofficial-sigs/config/master.conf',
-    require => File['/etc/clamav-unofficial-sigs/master.conf'],
+    require => File['/etc/clamav-unofficial-sigs'],
   }
 
   file { '/etc/clamav-unofficial-sigs/os.conf':
