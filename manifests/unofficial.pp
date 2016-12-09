@@ -1,6 +1,8 @@
 class clamav::unofficial (
-  $securite_key,
-  $malwarepatrol_key,
+  $securite_key       = 'not_set',
+  $malwarepatrol_key  = 'not_set',
+  $malwarepatrol_list = 'clamav_basic',
+  $default_db_rating  = 'LOW',
 ) {
 
   File {
@@ -10,21 +12,41 @@ class clamav::unofficial (
     require => Package['clamav-freshclam'],
   }
 
-  file {
-    '/usr/local/man/clamav-unofficial-sigs.8':
-      source  => 'puppet:///modules/clamav/unofficial-sigs/clamav-unofficial-sigs.8';
-
-    '/usr/local/bin/clamav-unofficial-sigs.sh':
-      source  => 'puppet:///modules/clamav/unofficial-sigs/clamav-unofficial-sigs.sh',
-      mode    => '0775';
-
-    '/var/log/clamav/unofficial.log':
-      ensure => file;
-
-    '/usr/local/etc/clamav-unofficial-sigs.conf':
-      content => template('clamav/clamav-unofficial-sigs.conf.erb');
+  # == Deploy script
+  file { '/usr/local/bin/clamav-unofficial-sigs.sh':
+    source  => 'puppet:///modules/clamav/unofficial-sigs/clamav-unofficial-sigs.sh',
+    mode    => '0775',
   }
 
+  # == Config
+  file { '/etc/clamav-unofficial-sigs':
+    ensure => directory,
+  }
+
+  file { '/etc/clamav-unofficial-sigs/master.conf':
+    ensure  => file,
+    source  => 'puppet:///modules/clamav/unofficial-sigs/config/master.conf',
+    require => File['/etc/clamav-unofficial-sigs/master.conf'],
+  }
+
+  file { '/etc/clamav-unofficial-sigs/os.conf':
+    ensure  => file,
+    source  => 'puppet:///modules/clamav/unofficial-sigs/config/os.ubuntu.conf',
+    require => File['/etc/clamav-unofficial-sigs/master.conf'],
+  }
+
+  file { '/etc/clamav-unofficial-sigs/user.conf':
+    ensure  => file,
+    content => template('clamav/unofficial-sigs/config/user.conf.erb'),
+    require => File['/etc/clamav-unofficial-sigs/master.conf'],
+  }
+
+  # == Log file
+  file { '/var/log/clamav/unofficial.log':
+    ensure => file,
+  }
+
+  # == Cron
   cron { 'clamav-unofficial':
     ensure  => present,
     command => '/usr/local/bin/clamav-unofficial-sigs.sh -c /usr/local/etc/clamav-unofficial-sigs.conf > /dev/null 2>&1',
