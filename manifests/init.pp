@@ -12,7 +12,7 @@ class clamav(
     include ::clamav::unofficial
   }
 
-  if $::operatingsystem != 'Ubuntu' {
-    fail "Unsupported operating system: ${::operatingsystem}"
+  if $facts['os']['name'] != 'Ubuntu' {
+    fail "Unsupported operating system: ${facts[os][name]}"
   }
 }
