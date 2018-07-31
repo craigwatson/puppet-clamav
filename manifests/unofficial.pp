@@ -13,7 +13,7 @@ class clamav::unofficial (
     source  => 'puppet:///modules/clamav/unofficial-sigs/clamav-unofficial-sigs.sh',
     owner   => 'root',
     group   => 'root',
-    mode    => '0644',
+    mode    => '0755',
     require => Package['clamav-freshclam'],
   }
 
