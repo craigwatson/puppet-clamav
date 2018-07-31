@@ -1,9 +1,10 @@
 class clamav::unofficial (
-  $securite_key       = 'not_set',
-  $malwarepatrol_key  = 'not_set',
-  $malwarepatrol_list = 'clamav_basic',
-  $default_db_rating  = 'LOW',
-  $enable_yara_rules  = true,
+  String $config_os,
+  String $securite_key       = 'not_set',
+  String $malwarepatrol_key  = 'not_set',
+  String $malwarepatrol_list = 'clamav_basic',
+  String $default_db_rating  = 'LOW',
+  Boolean $enable_yara_rules = true,
 ) {
 
   # == Deploy script
@@ -39,7 +40,7 @@ class clamav::unofficial (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => 'puppet:///modules/clamav/unofficial-sigs/config/os.ubuntu.conf',
+    source  => "puppet:///modules/clamav/unofficial-sigs/config/os.${config_os}.conf",
     require => File['/etc/clamav-unofficial-sigs/master.conf'],
   }
 
