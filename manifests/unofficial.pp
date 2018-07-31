@@ -3,6 +3,7 @@ class clamav::unofficial (
   $malwarepatrol_key  = 'not_set',
   $malwarepatrol_list = 'clamav_basic',
   $default_db_rating  = 'LOW',
+  $enable_yara_rules  = true,
 ) {
 
   # == Deploy script

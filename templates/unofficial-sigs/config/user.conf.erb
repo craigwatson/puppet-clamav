@@ -36,6 +36,12 @@ malwarepatrol_product_code="8"
 securiteinfo_authorisation_signature="<%= scope['clamav::unofficial::securite_key'] %>"
 <% end -%>
 
+<% if scope['clamav::unofficial::enable_yara_rules'] == true -%>
+enable_yararules="yes"
+<% else -%>
+enable_yararules=""
+<% end -%>
+
 # Default dbs rating (valid rating: LOW, MEDIUM, HIGH)
 default_dbs_rating="<%= scope['clamav::unofficial::default_db_rating'] %>"
 
