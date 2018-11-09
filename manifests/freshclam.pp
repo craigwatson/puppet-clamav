@@ -1,4 +1,4 @@
-class clamava::freshclam {
+class clamav::freshclam {
 
   file { '/etc/clamav/freshclam.conf':
     source  => 'puppet:///modules/clamav/freshclam.conf',
