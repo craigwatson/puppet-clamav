@@ -1,7 +1,7 @@
 class clamav::unofficial (
   String $config_os,
   Optional[String] $securite_key       = undef,
-  Optional[String  $malwarepatrol_key  = undef,
+  Optional[String] $malwarepatrol_key  = undef,
   String           $malwarepatrol_list = 'clamav_basic',
   String           $default_db_rating  = 'LOW',
   Boolean          $enable_yara_rules  = true,
