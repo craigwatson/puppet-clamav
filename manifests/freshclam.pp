@@ -1,5 +1,4 @@
 class clamav::freshclam {
-
   file { '/etc/clamav/freshclam.conf':
     source  => 'puppet:///modules/clamav/freshclam.conf',
     owner   => 'clamav',
@@ -8,19 +7,14 @@ class clamav::freshclam {
     require => Package['clamav-freshclam'],
   }
 
-  if $::clamav::run_freshclam == true {
+  if $clamav::run_freshclam == true {
     exec { 'freshclam-init':
-      command => '/usr/bin/freshclam --quiet > /dev/null 2>&1',
-      creates => '/var/lib/clamav/main.cvd',
+      command => '/usr/bin/freshclam --quiet; touch /var/lib/clamav/freshclam.done',
+      creates => '/var/lib/clamav/freshclam.done',
       require => File['/etc/clamav/freshclam.conf'],
       before  => Service['clamav-daemon'],
     }
-
     $cron_require = Exec['freshclam-init']
-
-    Service <| title == 'clamav-daemon' |> {
-      require => [Cron['freshclam'],File['/etc/clamav/clamd.conf']],
-    }
   } else {
     $cron_require = File['/etc/clamav/freshclam.conf']
   }
