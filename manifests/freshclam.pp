@@ -31,5 +31,6 @@ class clamav::freshclam {
     user    => 'root',
     minute  => '0',
     hour    => '1',
+    require => $cron_require,
   }
 }
