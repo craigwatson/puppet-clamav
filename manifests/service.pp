@@ -1,9 +1,16 @@
 class clamav::service {
-  service { ['clamav-daemon','clamsmtp']:
+  Service {
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
-    require    => File['/etc/clamav/clamd.conf','/etc/clamsmtpd.conf'],
+  }
+
+  service { 'clamav-daemon':
+    require => File['/etc/clamav/clamd.conf'],
+  }
+
+  service { 'clamsmtp':
+    require => File['/etc/clamsmtpd.conf'],
   }
 }

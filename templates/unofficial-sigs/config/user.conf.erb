@@ -21,18 +21,18 @@
 # Please note, it is your responsibility to manage the contents of this file.
 # Values provided here are just examples, feel free to use any values from the main config file.
 
-<% if scope['clamav::unofficial::malwarepatrol_key'] != 'not_set' -%>
+<% if scope['clamav::unofficial::malwarepatrol_key'] -%>
 malwarepatrol_receipt_code="<%= scope['clamav::unofficial::malwarepatrol_key'] %>"
 malwarepatrol_list="<%= scope['clamav::unofficial::malwarepatrol_list'] %>"
 malwarepatrol_free="yes"
 malwarepatrol_product_code="8"
 <% end -%>
 
-<% if scope['clamav::unofficial::securite_key'] != 'not_set' -%>
+<% if scope['clamav::unofficial::securite_key'] -%>
 securiteinfo_authorisation_signature="<%= scope['clamav::unofficial::securite_key'] %>"
 <% end -%>
 
-<% if scope['clamav::unofficial::enable_yara_rules'] == true -%>
+<% if scope['clamav::unofficial::enable_yara_rules'] -%>
 enable_yararules="yes"
 <% else -%>
 enable_yararules=""
