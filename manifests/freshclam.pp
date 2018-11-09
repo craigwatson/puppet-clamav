@@ -5,7 +5,7 @@ class clamav::freshclam {
     owner   => 'clamav',
     group   => 'adm',
     mode    => '0444',
-    require => Package['clamav-freshclam'];
+    require => Package['clamav-freshclam'],
   }
 
   if $::clamav::run_freshclam == true {
@@ -19,7 +19,7 @@ class clamav::freshclam {
     $cron_require = Exec['freshclam-init']
 
     Service <| title == 'clamav-daemon' |> {
-      require => Cron['freshclam'],
+      require => [Cron['freshclam'],File['/etc/clamav/clamd.conf']],
     }
   } else {
     $cron_require = File['/etc/clamav/freshclam.conf']
