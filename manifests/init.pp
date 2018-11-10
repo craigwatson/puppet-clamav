@@ -1,5 +1,4 @@
 class clamav(
-  Boolean $run_freshclam      = true,
   Boolean $include_unofficial = false,
 ) {
 
@@ -9,8 +8,7 @@ class clamav(
 
   include ::clamav::install
   include ::clamav::config
-  include ::clamav::freshclam
-  
+
   if $::clamav::include_unofficial == true {
     include ::clamav::unofficial
   }

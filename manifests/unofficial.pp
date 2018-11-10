@@ -7,12 +7,16 @@ class clamav::unofficial (
   Boolean          $enable_yara_rules  = true,
 ) {
 
+  File {
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
+  }
+
   # == Deploy script
   file { '/usr/local/bin/clamav-unofficial-sigs.sh':
     ensure  => file,
     source  => 'puppet:///modules/clamav/unofficial-sigs/clamav-unofficial-sigs.sh',
-    owner   => 'root',
-    group   => 'root',
     mode    => '0755',
     require => Package['clamav-freshclam'],
   }
@@ -20,35 +24,23 @@ class clamav::unofficial (
   # == Config
   file { '/etc/clamav-unofficial-sigs':
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     require => Package['clamav-freshclam'],
   }
 
   file { '/etc/clamav-unofficial-sigs/master.conf':
     ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     source  => 'puppet:///modules/clamav/unofficial-sigs/config/master.conf',
     require => File['/etc/clamav-unofficial-sigs'],
   }
 
   file { '/etc/clamav-unofficial-sigs/os.conf':
     ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     source  => "puppet:///modules/clamav/unofficial-sigs/config/os.${config_os}.conf",
     require => File['/etc/clamav-unofficial-sigs/master.conf'],
   }
 
   file { '/etc/clamav-unofficial-sigs/user.conf':
     ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     content => template('clamav/unofficial-sigs/config/user.conf.erb'),
     require => File['/etc/clamav-unofficial-sigs/master.conf'],
   }
@@ -56,9 +48,6 @@ class clamav::unofficial (
   # == Log file
   file { '/var/log/clamav/unofficial.log':
     ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
     require => Package['clamav-freshclam'],
   }
 

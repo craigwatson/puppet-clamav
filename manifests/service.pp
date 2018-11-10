@@ -6,14 +6,12 @@ class clamav::service {
     hasstatus  => true,
   }
 
-  if $clamav::run_freshclam == true {
-    $daemon_require = [Exec['freshclam-init'],File['/etc/clamav/clamd.conf']]
-  } else {
-    $daemon_require = File['/etc/clamav/clamd.conf']
+  service { 'clamav-freshclam':
+    require => File['/etc/clamsmtpd.conf'],
   }
 
   service { 'clamav-daemon':
-    require => $daemon_require,
+    require => File['/etc/clamav/clamd.conf'],
   }
 
   service { 'clamsmtp':
